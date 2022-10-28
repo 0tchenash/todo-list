@@ -9,7 +9,7 @@ services:
       - api
 
   api:
-    image: anti11/todo-list:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+    image: 0tchenash/todolist:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
     depends_on:
       - migrations
       - pg
@@ -17,7 +17,7 @@ services:
     - "./.env:/app/.env"
 
   migrations:
-    image: anti11/todo-list:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+    image: 0tchenash/todolist:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
     depends_on:
       - pg
     volumes:
