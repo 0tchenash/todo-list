@@ -12,20 +12,20 @@ services:
     build: .
     depends_on:
       - migrations
-      - pg
+      - db
     volumes:
     - ./.env:/app/.env
 
   migrations:
     build: .
     depends_on:
-      - pg
+      - db
     volumes:
     - ./.env:/app/.env
     command: >
       sh -c "python3 ./todolist/manage.py migrate"
 
-  pg:
+  db:
     image: postgres:latest
     environment:
       POSTGRES_USER: ${DB_USER}
