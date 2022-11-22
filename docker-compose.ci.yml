@@ -10,22 +10,35 @@ services:
 
   api:
     image: 0tchenash/todolist:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+    env_file:
+      - ./.env
     depends_on:
       - migrations
-      - pg
-    volumes:
-    - "./.env:/app/.env"
+
+  
+  bot:
+    image: 0tchenash/todolist:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+    env_file:
+      - ./.env
+    environment:
+      DB_HOST: db
+    depends_on:
+      - db
+      - migrations
+    
+    command: >
+      sh -c "python3 ./todolist/manage.py runbot"
 
   migrations:
     image: 0tchenash/todolist:${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+    env_file:
+      - ./.env    
     depends_on:
       - pg
-    volumes:
-    - ./.env:/app/.env
     command: >
       sh -c "python3 ./todolist/manage.py migrate"
 
-  pg:
+  db:
     image: postgres:14.3-alpine
     environment:
       POSTGRES_USER: ${DB_USER}

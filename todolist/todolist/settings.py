@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'social_django',
-    'drf_spectacular',
     'django_filters',
     'core',
     'goals',
+    'bot',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +82,7 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 DATABASES = {
     'default': {
@@ -172,3 +173,5 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Awesome hunting API',
     'VERSION': '1.0.0',
 }
+
+TG_TOKEN = os.getenv('TG_TOKEN')
